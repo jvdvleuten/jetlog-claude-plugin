@@ -6,7 +6,7 @@ Reference for the jetlog-logbook skill. It explains how Jetlog credits time, so 
 
 Every flight entry has crew, and each crew member has a role on that entry. The pilot's role decides which pilot-function time the flight credits: PIC, co-pilot, dual, instructor and so on. Total time, night and IFR are credited regardless of role.
 
-Roles are not entry types. PICUS, SPIC and the others are a role on a normal flight entry. Use the role strings the logbook already uses; do not invent one.
+Roles are not entry types. PICUS, SPIC and the others are a role on a normal flight entry. The exact codes are in [entry-fields.md](entry-fields.md#role-codes); a code Jetlog does not know credits no pilot-function time.
 
 - PIC: pilot in command time.
 - Co-pilot: co-pilot time. Cruise Relief Co-pilot (CRCP) is a co-pilot role: the credited time is calculated from block time and the number of crew under Part-FCL, it counts as co-pilot time and needs no signature. For the ATPL at most 250 hours of cruise relief count (FCL.510.A); the ATPL progress tracker in the app applies that cap.

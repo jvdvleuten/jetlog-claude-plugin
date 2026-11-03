@@ -99,13 +99,14 @@ Rules of the flow:
 - On an entry create, the pilot is added automatically with their default role (the role on their own person record, else the role on their latest entry). To pick a different role, put `SELF` in `people` with that role. To leave the pilot off (they were not crew), set `add_self: false` on the operation, next to `op` and `resource`, not inside `data`.
 - If no default role is known the proposal is rejected on `people`. Ask the pilot for their role.
 - Never guess other crew. Use a `person_id` from `list_people`. If the person is not in the list, ask the pilot rather than inventing a match from a similar name. Two people with the same name are two people.
-- For the role string, copy the exact value the logbook already uses (see `role` on a similar entry in `search_entries`, or `default_role` in `list_people`). Do not invent a role name. If the pilot's wording does not match a role you have seen, ask.
+- Roles are fixed codes such as `PIC`, `CP`, `CRCP`, `PICUS`, `SPIC`, `FI` and `FSTD_TRN`; the full list is in [entry-fields.md](entry-fields.md#role-codes). Prefer the code the pilot's earlier entries use for the same seat (`role` on a similar entry, or `default_role` in `list_people`). If the pilot's wording does not map clearly to one code, ask.
 
 ### Creating a flight
 
 - Needed from the pilot: date, from, to, and their role (unless known). Flight number, registration and actual times only if the pilot gave them. Do not fill in anything else.
-- Data field names you may use on an entry: `date`, `type`, `flight_number`, `registration`, `from`, `to`, `off_blocks`, `airborne`, `touchdown`, `on_blocks`, `remarks`, `update_flight_data`, `people`. Times are `HH:MM` UTC.
-- If you are unsure of a field name or its shape, say so and ask, or read a similar entry with `get_entry`. Do not guess the shape of landings, approaches or per-function time overrides. The pilot can set those in the app.
+- The entry fields and their exact shapes (landings and takeoffs, approaches, IFR, simulator fields, role codes, `manual_times`) are in [entry-fields.md](entry-fields.md). Times are `HH:MM` UTC.
+- Landings: when the pilot gives a day and night split, use the `manual` shape with all four counts. Otherwise use the `auto` shape and Jetlog splits them from the times.
+- Function times (PIC, co-pilot, night and so on) follow from the actual times, the role and the aircraft. To correct one on a normal flight, correct the times or the role, not `manual_times`; that map only counts on carry-over and imported entries. See [entry-fields.md](entry-fields.md#per-function-time-overrides-manual_times).
 - Check for a duplicate first: search the date, route or flight number. Tell the pilot if a similar entry exists, and propose an update instead of a second entry.
 
 ### Correcting an entry
@@ -114,7 +115,7 @@ Search, confirm with the pilot which entry (date, route, registration), then pro
 
 ### Simulator sessions
 
-A simulator or FSTD session is an entry of type `fstd`, not a flight. It has a device (not a registration) and a session type, and a start and end time rather than blocks. Do not log sim time as a flight with a made-up route. Use `search_entries` with `type: "fstd"` to find sessions. If the pilot asks to add a session, propose it and show the preview, and ask for anything you do not know (date, device, session type, start and end, instructor or examiner). Do not guess the device. An entry that was imported as a flight cannot be turned into a session through these tools; the pilot mails support@jetlog.app and Jetlog converts it.
+A simulator or FSTD session is an entry of type `fstd`, not a flight. It has a device (not a registration) and a session type, and a start and end time rather than blocks. Do not log sim time as a flight with a made-up route. Use `search_entries` with `type: "fstd"` to find sessions. If the pilot asks to add a session, propose an entry with `type: "fstd"`, `start_time`, `end_time`, `fstd_id` and `session_type` (see [entry-fields.md](entry-fields.md#simulator-sessions-type-fstd)), with the pilot as `FSTD_TRN`, `FSTD_INS` or another `FSTD_*` role. Show the preview, and ask for anything you do not know (date, device, session type, start and end, instructor or examiner). Do not guess the device. An entry that was imported as a flight cannot be turned into a session through these tools; the pilot mails support@jetlog.app and Jetlog converts it.
 
 ### People, aircraft and places
 
