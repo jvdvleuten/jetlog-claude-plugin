@@ -1,0 +1,23 @@
+{
+  "name": "jetlog",
+  "displayName": "Jetlog",
+  "description": "Ask Claude about your pilot logbook in Jetlog: totals, flights, crew, aircraft and airports, and have corrections proposed for you to confirm.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jetlog",
+    "url": "https://jetlog.app",
+    "email": "support@jetlog.app"
+  },
+  "homepage": "https://jetlog.app/docs/ai-assistants-and-the-cli",
+  "repository": "https://github.com/jvdvleuten/jetlog-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "jetlog",
+    "pilot",
+    "logbook",
+    "aviation",
+    "flight-hours",
+    "mcp"
+  ],
+  "privacyPolicyUrl": "https://jetlog.app/privacy"
+}

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "jetlog": {
+      "type": "http",
+      "url": "https://jetlog.app/mcp"
+    }
+  }
+}
